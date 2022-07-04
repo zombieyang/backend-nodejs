@@ -81,7 +81,7 @@ const IS_DEBUG = options.debug;
 
     mkdir('-p', 'puerts-node/nodejs/Lib/Win64/');
 
-    cp('node/out/Release/libnode.dll', './puerts-node/nodejs/Lib/Win64/');
-    cp('node/out/Release/libnode.exp', './puerts-node/nodejs/Lib/Win64/');
-    cp('node/out/Release/libnode.lib', './puerts-node/nodejs/Lib/Win64/');
+    cp(`node/out/${IS_DEBUG ? 'Debug' : "Release"}/libnode.dll`, './puerts-node/nodejs/Lib/Win64/');
+    cp(`node/out/${IS_DEBUG ? 'Debug' : "Release"}/libnode.exp`, './puerts-node/nodejs/Lib/Win64/');
+    cp(`node/out/${IS_DEBUG ? 'Debug' : "Release"}/libnode.lib`, './puerts-node/nodejs/Lib/Win64/');
 })();
