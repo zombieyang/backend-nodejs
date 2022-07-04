@@ -20,6 +20,7 @@ jobs:
       shell: cmd
       run: |
         cd %GITHUB_WORKSPACE%
+        npm i
         node index.mjs --version ${{env.VERSION}} --debug
     - uses: actions/upload-artifact@v2
       with:
