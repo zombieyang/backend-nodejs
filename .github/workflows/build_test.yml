@@ -1,0 +1,28 @@
+name: build nodejs test
+
+on: 
+  workflow_dispatch:
+    inputs:
+      tag_date:
+        description: 'tag date'     
+        required: true
+
+env:
+  VERSION: 14.16.1
+
+jobs:
+  build_windows:
+    name: Windows
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run build script
+      shell: cmd
+      run: |
+        cd %GITHUB_WORKSPACE%
+        node index.mjs --version ${{env.VERSION}} --debug
+    - uses: actions/upload-artifact@v2
+      with:
+        name: nodejs_bin
+        path: puerts-node/**/*
+          
