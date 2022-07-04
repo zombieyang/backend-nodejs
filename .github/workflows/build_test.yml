@@ -17,9 +17,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run build script
-      shell: cmd
+      shell: bash
       run: |
-        cd %GITHUB_WORKSPACE%
+        cd $GITHUB_WORKSPACE
         npm i
         node index.mjs --version ${{env.VERSION}} --debug
     - uses: actions/upload-artifact@v2
