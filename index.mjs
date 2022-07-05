@@ -69,19 +69,20 @@ const IS_DEBUG = options.debug;
     await sxExecAsync('.\\vcbuild.bat dll openssl-no-asm' + (IS_DEBUG ? ' debug' : ''));
 
     cd(WORKPATH);
-    mkdir('-p', 'puerts-node/nodejs/include')
-    mkdir('-p', 'puerts-node/nodejs/deps/uv/include')
-    mkdir('-p', 'puerts-node/nodejs/deps/v8/include')
+    const puertsNodePath = __dirname + '/puerts-node';
+    mkdir('-p', puertsNodePath + '/nodejs/include')
+    mkdir('-p', puertsNodePath + '/nodejs/deps/uv/include')
+    mkdir('-p', puertsNodePath + '/nodejs/deps/v8/include')
 
-    cp('node/src/node.h', './puerts-node/nodejs/include');
-    cp('node/src/node_version.h', './puerts-node/nodejs/include');
+    cp('node/src/node.h', puertsNodePath + '/nodejs/include');
+    cp('node/src/node_version.h', puertsNodePath + '/nodejs/include');
 
-    cp('node/deps/uv/include/**/*', './puerts-node/nodejs/deps/uv');
-    cp('node/deps/v8/include/**/*', './puerts-node/nodejs/deps/v8');
+    cp('node/deps/uv/include/**/*', puertsNodePath + '/nodejs/deps/uv');
+    cp('node/deps/v8/include/**/*', puertsNodePath + '/nodejs/deps/v8');
 
     mkdir('-p', 'puerts-node/nodejs/Lib/Win64/');
 
-    cp(`node/out/${IS_DEBUG ? 'Debug' : "Release"}/libnode.dll`, './puerts-node/nodejs/Lib/Win64/');
-    cp(`node/out/${IS_DEBUG ? 'Debug' : "Release"}/libnode.exp`, './puerts-node/nodejs/Lib/Win64/');
-    cp(`node/out/${IS_DEBUG ? 'Debug' : "Release"}/libnode.lib`, './puerts-node/nodejs/Lib/Win64/');
+    cp(`node/out/${IS_DEBUG ? 'Debug' : "Release"}/libnode.dll`, puertsNodePath + '/nodejs/Lib/Win64/');
+    cp(`node/out/${IS_DEBUG ? 'Debug' : "Release"}/libnode.exp`, puertsNodePath + '/nodejs/Lib/Win64/');
+    cp(`node/out/${IS_DEBUG ? 'Debug' : "Release"}/libnode.lib`, puertsNodePath + '/nodejs/Lib/Win64/');
 })();
