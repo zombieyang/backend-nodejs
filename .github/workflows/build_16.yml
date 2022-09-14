@@ -213,6 +213,9 @@ jobs:
         run: |
           sudo apt-get install gcc-multilib g++-multilib
       - uses: actions/checkout@v2
+      - name: npm install
+        shell: bash
+        run: npm install
       - name: Install NDK
         run: |
           cd ~
@@ -274,6 +277,9 @@ jobs:
         run: |
           sudo apt-get install gcc-multilib g++-multilib
       - uses: actions/checkout@v2
+      - name: npm install
+        shell: bash
+        run: npm install
       - name: Install NDK
         run: |
           cd ~
