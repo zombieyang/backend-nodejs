@@ -311,10 +311,15 @@ jobs:
         with:
           name: nodejs_bin
           path: nodejs_bin/
+      - uses: actions/download-artifact@v1
+        with:
+          name: nodejs_bin_with_ssl
+          path: nodejs_bin_with_ssl/
           
       - name: Create Release Asset
         run: |
           cd nodejs_bin/ && tar cvfz ../nodejs_bin_${{env.VERSION}}.tgz nodejs_16 && cd -
+          cd nodejs_bin_with_ssl/ && tar cvfz ../nodejs_bin_with_ssl_${{env.VERSION}}.tgz nodejs_16 && cd -
           
       - name: Create Release
         id: create_release
@@ -336,5 +341,16 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./nodejs_bin_${{env.VERSION}}.tgz
           asset_name: nodejs_bin_${{env.VERSION}}.tgz
+          asset_content_type: application/tgz
+
+      - name: Upload nodejs_bin
+        #id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./nodejs_bin_with_ssl_${{env.VERSION}}.tgz
+          asset_name: nodejs_bin_with_ssl_${{env.VERSION}}.tgz
           asset_content_type: application/tgz
           
