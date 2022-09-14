@@ -38,6 +38,10 @@ jobs:
       with:
         name: nodejs_bin
         path: puerts-node/**/*
+    - uses: actions/upload-artifact@v2
+      with:
+        name: nodejs_bin_without_ssl
+        path: puerts-node/**/*
         
   build_windows_32:
     name: Windows-32
@@ -66,6 +70,10 @@ jobs:
       with:
         name: nodejs_bin
         path: puerts-node/**/*
+    - uses: actions/upload-artifact@v2
+      with:
+        name: nodejs_bin_with_ssl
+        path: puerts-node/**/*
           
   build_macos:
     name: macOS
@@ -86,6 +94,10 @@ jobs:
       with:
         name: nodejs_bin
         path: ~/puerts-node/**/*
+    - uses: actions/upload-artifact@v2
+      with:
+        name: nodejs_bin_with_ssl
+        path: ~/puerts-node/**/*
           
   build_macos_arm64:
     name: macOS with apple m1
@@ -105,6 +117,10 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: nodejs_bin
+        path: ~/puerts-node/**/*
+    - uses: actions/upload-artifact@v2
+      with:
+        name: nodejs_bin_with_ssl
         path: ~/puerts-node/**/*
        
   build_ios:
@@ -129,6 +145,17 @@ jobs:
       with:
         name: nodejs_bin
         path: ~/puerts-node/**/*
+    - name: Clear dist
+      run: |
+        rm -rf ~/puerts-node/nodejs
+    - name: Build With SSL
+      run: |
+        cd $GITHUB_WORKSPACE
+        bash ./ios.sh ${{env.VERSION}} 1
+    - uses: actions/upload-artifact@v2
+      with:
+        name: nodejs_bin_with_ssl
+        path: ~/puerts-node/**/*
          
   build_linux:
     name: linux
@@ -149,8 +176,12 @@ jobs:
       with:
         name: nodejs_bin
         path: ~/puerts-node/**/*
+    - uses: actions/upload-artifact@v2
+      with:
+        name: nodejs_bin_with_ssl
+        path: ~/puerts-node/**/*
   
-  build_android_arm64:
+  build_android_arm64_shared:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -175,7 +206,7 @@ jobs:
           name: nodejs_bin
           path: ~/puerts-node/**/*
         
-  build_android_armv7:
+  build_android_armv7_shared:
     runs-on: ubuntu-latest
     steps:
       - name: Install gcc-multilib g++-multilib
@@ -200,7 +231,7 @@ jobs:
           name: nodejs_bin
           path: ~/puerts-node/**/*
 
-  build_android_arm64_static:
+  build_android_arm64:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -224,8 +255,19 @@ jobs:
         with:
           name: nodejs_bin
           path: ~/puerts-node/**/*
+      - name: Clear dist
+        run: |
+          rm -rf ~/puerts-node/nodejs
+      - name: Build With SSL
+        run: |
+          cd $GITHUB_WORKSPACE
+          bash ./android-static.sh ${{env.VERSION}} arm 1
+      - uses: actions/upload-artifact@v2
+        with:
+          name: nodejs_bin_with_ssl
+          path: ~/puerts-node/**/*
         
-  build_android_armv7_static:
+  build_android_armv7:
     runs-on: ubuntu-latest
     steps:
       - name: Install gcc-multilib g++-multilib
@@ -249,10 +291,21 @@ jobs:
         with:
           name: nodejs_bin
           path: ~/puerts-node/**/*
+      - name: Clear dist
+        run: |
+          rm -rf ~/puerts-node/nodejs
+      - name: Build With SSL
+        run: |
+          cd $GITHUB_WORKSPACE
+          bash ./android-static.sh ${{env.VERSION}} arm 1
+      - uses: actions/upload-artifact@v2
+        with:
+          name: nodejs_bin_with_ssl
+          path: ~/puerts-node/**/*
         
   publish:
     runs-on: ubuntu-latest
-    needs: [build_windows,build_windows_32,build_macos,build_macos_arm64,build_linux,build_ios,build_android_arm64,build_android_armv7,build_android_arm64_static,build_android_armv7_static]
+    needs: [build_windows,build_windows_32,build_macos,build_macos_arm64,build_linux,build_ios,build_android_arm64,build_android_armv7]
     steps:
       - uses: actions/download-artifact@v1
         with:
