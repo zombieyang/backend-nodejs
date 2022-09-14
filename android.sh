@@ -30,6 +30,7 @@ git clone https://github.com/nodejs/node.git
 cd node
 git fetch origin v$VERSION
 git checkout v$VERSION
+git reset --hard
 
 echo "=====[Patching Node.js]====="
 # node $WORKSPACE/node-script/do-gitpatch.js -p $WORKSPACE/patchs/android_disable_alink_thin_v$VERSION.patch

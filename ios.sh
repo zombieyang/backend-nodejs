@@ -10,6 +10,7 @@ git clone https://github.com/nodejs/node.git
 cd node
 git fetch origin v$VERSION
 git checkout v$VERSION
+git reset --hard 
 
 echo "=====[Patching Node.js]====="
 node $WORKSPACE/node-script/do-gitpatch.js -p $WORKSPACE/patchs/lib_uv_add_on_watcher_queue_updated_v$VERSION.patch
