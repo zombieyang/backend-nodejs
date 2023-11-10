@@ -15,4 +15,4 @@ node %~dp0\node-script\add_arraybuffer_new_without_stl.js deps/v8
 node %~dp0\node-script\make_v8_inspector_export.js
 
 echo =====[ Building Node.js ]=====
-.\vcbuild.bat dll openssl-no-asm
+.\vcbuild.bat dll openssl-no-asm debug
