@@ -13,7 +13,7 @@ env:
 jobs:
   build_windows:
     name: Windows
-    runs-on: windows-2019
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
     - name: npm install
@@ -41,7 +41,7 @@ jobs:
         
   build_windows_32:
     name: Windows-32
-    runs-on: windows-2019
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
     - name: npm install
@@ -69,7 +69,7 @@ jobs:
           
   build_macos:
     name: macOS
-    runs-on: macos-11
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
     - name: npm install
@@ -89,7 +89,7 @@ jobs:
           
   build_macos_arm64:
     name: macOS with apple m1
-    runs-on: macos-11
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
     - name: npm install
