@@ -17,6 +17,8 @@ node $WORKSPACE/node-script/make_v8_inspector_export.js
 
 echo "=====[Building Node.js]====="
 
+export CXXFLAGS="-Wno-error=conversion -fpermissive -std=c++17"
+export CFLAGS="-Wno-error=conversion"
 CC_host="clang" CXX_host="clang++" CC_target="clang -arch arm64" CXX_target="clang++ -arch arm64" CC="clang -arch arm64" CXX="clang++ -arch arm64" ./configure --shared --cross-compiling --dest-cpu=arm64
 make -j8
 
