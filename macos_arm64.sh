@@ -16,15 +16,8 @@ node $WORKSPACE/node-script/add_arraybuffer_new_without_stl.js deps/v8
 node $WORKSPACE/node-script/make_v8_inspector_export.js
 
 echo "=====[Building Node.js]====="
-clang++ --version
-echo | clang++ -dM -E -x c++ -std=c++20 - | grep __cplusplus
-echo "=====[Building Node.js 2]====="
 
-echo | clang++ -dM -E -x c++ - | grep __cplusplus
-echo "=====[Building Node.js 3]====="
-exit 0
-
-CC_host="clang" CXX_host="clang++" CC_target="clang -arch arm64" CXX_target="clang++ -arch arm64" CC="clang -arch arm64" CXX="clang++ -arch arm64" ./configure --shared --cross-compiling --dest-cpu=arm64
+CC_host="clang" CXX_host="clang++" CC_target="clang -arch arm64" CXX_target="clang++ -arch arm64" CC="clang -arch arm64" CXX="clang++ -arch arm64" CXXFLAGS="-std=c++20" ./configure --shared --cross-compiling --dest-cpu=arm64
 make -j8
 
 mkdir -p ../puerts-node/nodejs/include
