@@ -16,8 +16,8 @@ node $WORKSPACE/node-script/add_arraybuffer_new_without_stl.js deps/v8
 node $WORKSPACE/node-script/make_v8_inspector_export.js
 
 echo "=====[Building Node.js]====="
-
-CXX="g++-12 -arch arm64" ./configure --shared --cross-compiling --dest-cpu=arm64
+g++ -v
+CXX="g++-12" CXXFLAGS="-std=c++20" ./configure --shared --cross-compiling --dest-cpu=arm64
 make -j8
 
 mkdir -p ../puerts-node/nodejs/include
