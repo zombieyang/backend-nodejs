@@ -19,7 +19,8 @@ echo "=====[Building Node.js]====="
 
 export CC=clang
 export CXX=clang++
-export CXXFLAGS="-stdlib=libc++"
+export CXXFLAGS="-stdlib=libc++ -std=c++17 -Wno-c++20-compat -Wno-deprecated-declarations -fpermissive"
+export CFLAGS="-Wno-deprecated-declarations"
 export LDFLAGS="-stdlib=libc++"
 
 ./configure --shared
